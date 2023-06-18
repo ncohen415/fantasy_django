@@ -1,9 +1,17 @@
-import React from "react"
+import React, { ReactNode } from "react"
+import Header from "../components/Header"
 
-type Props = {}
+type Props = {
+  children: ReactNode
+}
 
 const Layout = (props: Props) => {
-  return <div>Layout</div>
+  return (
+    <>
+      <Header />
+      <div>{props.children}</div>
+    </>
+  )
 }
 
 export default Layout
