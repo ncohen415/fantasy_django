@@ -8,7 +8,7 @@ export default function Dashboard({}: Props) {
   return (
     <Layout>
       <div>Dashboard</div>
-      <UserButton />
+      <UserButton afterSignOutUrl="/" />
     </Layout>
   )
 }

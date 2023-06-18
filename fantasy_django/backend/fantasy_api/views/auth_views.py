@@ -38,6 +38,7 @@ class RegisterUserView(APIView):
             email = data['email_addresses'][0]['email_address']
             password = str(uuid.uuid4())
 
+
             if not CustomUser.objects.filter(clerk_id=clerk_id, email=email).exists():
                 user = CustomUser.objects.create_user(
                     clerk_id=clerk_id,

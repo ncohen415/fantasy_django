@@ -1,8 +1,13 @@
 import React from "react"
 import { SignUp as Register } from "@clerk/nextjs"
+import Layout from "@/hocs/Layout"
 
 type Props = {}
 
 export default function SignUp({}: Props) {
-  return <Register />
+  return (
+    <Layout>
+      <Register />
+    </Layout>
+  )
 }
