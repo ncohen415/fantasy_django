@@ -1,14 +1,13 @@
 import React from "react"
 import { UserButton } from "@clerk/nextjs"
-import Layout from "@/hocs/Layout"
+import DashboardLayout from "@/hocs/DashboardLayout"
 
 type Props = {}
 
 export default function Dashboard({}: Props) {
   return (
-    <Layout>
+    <DashboardLayout>
       <div>Dashboard</div>
-      <UserButton afterSignOutUrl="/" />
-    </Layout>
+    </DashboardLayout>
   )
 }

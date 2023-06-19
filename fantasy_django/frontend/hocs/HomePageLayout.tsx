@@ -1,11 +1,14 @@
 import React, { ReactNode } from "react"
+import { useUser } from "@clerk/nextjs"
 import Header from "../components/Header"
+import DashboardSidebar from "../components/Header"
 
 type Props = {
   children: ReactNode
 }
 
-const Layout = (props: Props) => {
+const HomePageLayout = (props: Props) => {
+  const user = useUser()
   return (
     <>
       <Header />
@@ -14,4 +17,4 @@ const Layout = (props: Props) => {
   )
 }
 
-export default Layout
+export default HomePageLayout

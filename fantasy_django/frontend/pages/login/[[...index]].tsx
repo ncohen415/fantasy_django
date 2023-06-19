@@ -1,13 +1,13 @@
 import React from "react"
 import { SignIn } from "@clerk/nextjs"
-import Layout from "@/hocs/Layout"
+import HomePageLayout from "@/hocs/HomePageLayout"
 
 type Props = {}
 
 export default function Login({}: Props) {
   return (
-    <Layout>
+    <HomePageLayout>
       <SignIn />
-    </Layout>
+    </HomePageLayout>
   )
 }
