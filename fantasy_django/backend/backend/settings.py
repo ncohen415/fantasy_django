@@ -28,7 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "ed0e-2603-7000-8bf0-9460-d97c-7f9d-dd59-4cc5.ngrok-free.app",
-    "localhost"
+    "localhost",
+    '127.0.0.1',
 ]
 
 AUTH_USER_MODEL = "fantasy_api.CustomUser"

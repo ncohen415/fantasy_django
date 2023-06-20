@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react"
+import { Fragment, useState, ReactNode } from "react"
 import { Dialog, Menu, Transition } from "@headlessui/react"
 import {
   Bars3Icon,
@@ -13,8 +13,6 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import { UserButton, useUser } from "@clerk/nextjs"
-import { getAuth } from "@clerk/nextjs/server"
-import { GetServerSideProps } from "next"
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -38,7 +36,11 @@ function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function DashboardLayout({ data }) {
+type Props = {
+  children: ReactNode
+}
+
+export default function DashboardLayout(props: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const clerkUser = useUser()
 
@@ -321,29 +323,10 @@ export default function DashboardLayout({ data }) {
           </div>
 
           <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">{/* Your content */}</div>
+            <div className="px-4 sm:px-6 lg:px-8">{props.children}</div>
           </main>
         </div>
       </div>
     </>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { userId } = getAuth(context.req)
-  const res = await fetch(
-    "http://localhost:8000/api/accounts/get-user-from-clerk-id",
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "applitcation/json",
-      },
-      body: JSON.stringify({ id: userId }),
-    }
-  )
-  const data = await res.json()
-  console.log(data)
-
-  // Pass data to the page via props
-  return { props: { data } }
 }

@@ -27,11 +27,22 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.AllowAny]
 
 class GetUserFromClerkId(APIView):
-    http_method_names = ['get']
-    def get(self, request):
-        print(request)
+    http_method_names = ['post']
+    def post(self, request):
+        data = request.data
+        clerk_id = data["clerk_id"]
+        filtered_user = CustomUser.objects.filter(clerk_id=clerk_id)
+        if len(filtered_user) < 1:
+            return Response(
+                {"error": "No Django user with that ID"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
         return Response(
-            {"success", "Django user retrieved"},
+            {
+                "success": "Django user retrieved",
+                "django_user": CustomUserSerializer(filtered_user[0]).data
+            },
             status=status.HTTP_200_OK,
         )
 
