@@ -1,5 +1,6 @@
 import type { AppProps } from "next/app"
 import { ClerkProvider } from "@clerk/nextjs"
+import "../globals.css"
 import { ChakraProvider, extendTheme } from "@chakra-ui/react"
 
 export default function App({ Component, pageProps }: AppProps) {

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react"
 import { useUser } from "@clerk/nextjs"
 import Header from "../components/Header"
-import DashboardSidebar from "../components/Header"
 
 type Props = {
   children: ReactNode
