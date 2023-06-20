@@ -12,9 +12,9 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
-import { UserButton } from "@clerk/nextjs"
-import { useUser } from "@clerk/nextjs"
+import { UserButton, useUser } from "@clerk/nextjs"
+import { getAuth } from "@clerk/nextjs/server"
+import { GetServerSideProps } from "next"
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -40,8 +40,7 @@ function classNames(...classes: Array<string>) {
 
 export default function DashboardLayout({ data }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [user, setUser] = useState(null)
-  console.log(data)
+  const clerkUser = useUser()
 
   return (
     <>
@@ -330,19 +329,18 @@ export default function DashboardLayout({ data }) {
   )
 }
 
-export async function getServerSideProps() {
-  const clerkUser = useUser()
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { userId } = getAuth(context.req)
   const res = await fetch(
-    `http://localhost:8000/api/accounts/get-user-from-clerk-id`,
+    "http://localhost:8000/api/accounts/get-user-from-clerk-id",
     {
       method: "GET",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        "Content-Type": "applitcation/json",
       },
+      body: JSON.stringify({ id: userId }),
     }
   )
-
   const data = await res.json()
   console.log(data)
 
