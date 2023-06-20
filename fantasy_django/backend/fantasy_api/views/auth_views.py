@@ -26,6 +26,16 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     serializer_class = CustomUserSerializer
     permission_classes = [permissions.AllowAny]
 
+class GetUserFromClerkId(APIView):
+    http_method_names = ['get']
+    def get(self, request):
+        print(request)
+        return Response(
+            {"success", "Django user retrieved"},
+            status=status.HTTP_200_OK,
+        )
+
+
 class RegisterUserView(APIView):
     http_method_names = ["post"]
     # logic for registering new user account

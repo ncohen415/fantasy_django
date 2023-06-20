@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline"
 import { ChevronDownIcon, MagnifyingGlassIcon } from "@heroicons/react/20/solid"
 import { UserButton } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -37,8 +38,10 @@ function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ")
 }
 
-export default function Example() {
+export default function DashboardLayout({ data }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [user, setUser] = useState(null)
+  console.log(data)
 
   return (
     <>
@@ -303,7 +306,7 @@ export default function Example() {
                 <Menu as="div" className="relative">
                   <Menu.Button className="-m-1.5 flex items-center p-1.5">
                     <span className="sr-only">Open user menu</span>
-                    <UserButton />
+                    <UserButton afterSignOutUrl="/" />
                     <span className="hidden lg:flex lg:items-center">
                       <span
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
@@ -325,4 +328,24 @@ export default function Example() {
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  const clerkUser = useUser()
+  const res = await fetch(
+    `http://localhost:8000/api/accounts/get-user-from-clerk-id`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  )
+
+  const data = await res.json()
+  console.log(data)
+
+  // Pass data to the page via props
+  return { props: { data } }
 }
