@@ -6,9 +6,8 @@ import { getAuth } from "@clerk/nextjs/server"
 
 export default function Dashboard({ data }) {
   const [djangoUser, setDjangoUser] = useState(data.django_user)
-  console.log(djangoUser)
   return (
-    <DashboardLayout>
+    <DashboardLayout user={djangoUser}>
       <div>Dashboard</div>
     </DashboardLayout>
   )
@@ -30,7 +29,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       }
     )
     const data = await res.json()
-    console.log(data)
     return { props: { data } }
   } catch (e) {
     console.log(e)

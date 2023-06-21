@@ -20,6 +20,7 @@ from fantasy_api.serializers import (
     CustomUserSerializer
 )
 import uuid
+from datetime import datetime
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -75,13 +76,13 @@ class RegisterUserView(APIView):
                         status=status.HTTP_201_CREATED,
                     )
                 else:
-                    print(1)
+
                     return Response(
                         {"error": "Something went wrong when trying to create account"},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     ) 
             else:
-                print(2)
+
                 return Response(
                     {"error": "Account already made with that email"},
                     status=status.HTTP_400_BAD_REQUEST,
@@ -98,10 +99,12 @@ class UpdateUserView(APIView):
     http_method_names = ["post"]
     def post(self, request):
         try:
+            print("hiii")
             data = request.data['data']
             email = data['email_addresses'][0]['email_address']
             first_name = data['first_name']
             last_name = data["last_name"]
+            last_sign_in_at = data["last_sign_in_at"]
             clerk_id = data["id"]
             user = CustomUser.objects.filter(clerk_id=clerk_id)[0]
             if clerk_id == user.clerk_id and email == user.email:
@@ -114,10 +117,14 @@ class UpdateUserView(APIView):
                 if last_name != user.last_name:
                     user.last_name = last_name
 
+                if last_sign_in_at != user.last_login:
+                    user.last_sign_in_at = last_sign_in_at
+
                 user.save()
 
             return Response(
-                {"success": "Account Updated"}
+                {"success": "Account Updated"},
+                status=status.HTTP_200_OK
             )
 
         except:

@@ -7,7 +7,7 @@ type Props = {
 }
 
 const HomePageLayout = (props: Props) => {
-  const user = useUser()
+  console.log(props.user)
   return (
     <>
       <Header />

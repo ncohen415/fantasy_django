@@ -13,6 +13,20 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import { UserButton, useUser } from "@clerk/nextjs"
+import {
+  Modal,
+  FormControl,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  Divider,
+  Button,
+  FormLabel,
+  Input,
+  FormHelperText,
+} from "@chakra-ui/react"
 
 const navigation = [
   { name: "Home", href: "#", icon: HomeIcon, current: true },
@@ -38,22 +52,37 @@ function classNames(...classes: Array<string>) {
 
 type Props = {
   children: ReactNode
+  user: Object
 }
 
 export default function DashboardLayout(props: Props) {
+  // STATE
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [initializeUserData, setInitializeUserData] = useState({
+    first_name: "",
+    last_name: "",
+  })
+  const { first_name, last_name } = initializeUserData
+
+  // HOOKS
   const clerkUser = useUser()
+
+  // FUNCTIONS
+
+  const userDataOnChange = (e) =>
+    setInitializeUserData({
+      ...initializeUserData,
+      [e.target.name]: e.target.value,
+    })
+
+  const updateUser = async (e) => {
+    e.preventDefault()
+
+    // MAKE REQUEST FROM API FOLDER
+  }
 
   return (
     <>
-      {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-white">
-        <body class="h-full">
-        ```
-      */}
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
@@ -313,7 +342,11 @@ export default function DashboardLayout(props: Props) {
                         className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                         aria-hidden="true"
                       >
-                        Tom Cook
+                        {props.user &&
+                        props.user?.first_name &&
+                        props.user?.last_name
+                          ? props.user?.first_name + " " + props.user?.last_name
+                          : props.user?.email}
                       </span>
                     </span>
                   </Menu.Button>
@@ -327,6 +360,45 @@ export default function DashboardLayout(props: Props) {
           </main>
         </div>
       </div>
+      {props.user?.last_login !== null ? (
+        ""
+      ) : (
+        <Modal
+          isOpen={true}
+          onClose={() => {}}
+          closeOnEsc={false}
+          closeOnOverlayClick={false}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Tell us a little about yourself</ModalHeader>
+            <ModalBody>
+              <FormControl isRequired={true}>
+                <FormLabel>First Name</FormLabel>
+                <Input
+                  type="text"
+                  name="first_name"
+                  onChange={userDataOnChange}
+                />
+                <FormHelperText>Your First Name</FormHelperText>
+                <Divider margin={"1rem 0 1rem 0"} />
+
+                <FormLabel>Last Name</FormLabel>
+                <Input
+                  type="text"
+                  name="last_name"
+                  onChange={userDataOnChange}
+                />
+                <FormHelperText>Your Last Name</FormHelperText>
+                <Divider margin={"1rem 0 1rem 0"} />
+              </FormControl>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={(e) => updateUser(e)}>Submit</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
     </>
   )
 }

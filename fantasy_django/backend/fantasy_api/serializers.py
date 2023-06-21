@@ -11,8 +11,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "is_staff",
             "is_active",
             "is_superuser",
-            "date_joined",
             "first_name",
             "last_name",
             "clerk_id",
+            "last_login"
         )
