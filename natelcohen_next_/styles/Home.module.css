@@ -1,0 +1,29 @@
+.cardWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.card {
+  aspect-ratio: 2/3;
+  height: 600px;
+
+  background-color: green;
+  transition: ease-in-out 0.4s;
+}
+.left {
+  margin-right: 1rem;
+}
+.right {
+  margin-left: 1rem;
+}
+
+.hover {
+  background-color: black;
+  height: 700px;
+}
+
+.notHover {
+  height: 500px;
+}
