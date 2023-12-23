@@ -1,0 +1,40 @@
+.right .image {
+  background-color: #fffffc;
+  height: 300px;
+  width: 200px;
+  transition: all 1s ease-in-out;
+}
+.right {
+  display: flex;
+  flex: 0 1 50%;
+  padding-left: 1.5rem;
+  flex-direction: column;
+}
+.aboutHeading {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  color: #2a2727;
+}
+.aboutText {
+  font-size: 16px;
+  line-height: 25px;
+  margin-bottom: 2rem;
+  color: #2a2727;
+}
+
+.buttonWrapper {
+  display: flex;
+  flex: 0 1 50%;
+}
+.button {
+  display: flex;
+  flex: 0 1 25%;
+  border: 1.5px solid #2a2727;
+  border-radius: 5000px;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  font-weight: bold;
+  color: #2a2727;
+}

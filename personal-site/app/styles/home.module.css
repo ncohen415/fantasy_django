@@ -1,0 +1,42 @@
+.headingContainer {
+  display: flex;
+  justify-content: center;
+  flex: 0 1 100%;
+  padding: 0 2rem 0 2rem;
+}
+.nameWrapper {
+  position: relative;
+}
+.heading {
+  font-size: 150px;
+  stroke-width: 4px;
+  z-index: 0;
+  color: #2a2727;
+}
+.subHeading {
+  position: absolute;
+  font-size: 100px;
+  top: 75px;
+  left: 10%;
+  z-index: 1;
+  color: gray;
+}
+
+.palletContainer {
+  display: flex;
+  padding: 0 2rem 0 2rem;
+  justify-content: flex-end;
+}
+
+.pallet {
+  height: 45px;
+  width: 45px;
+  border-radius: 5000px;
+  margin-left: -10px;
+  border: 2px solid #eeeeee;
+}
+
+.hero {
+  display: flex;
+  padding: 0 2rem 0 2rem;
+}

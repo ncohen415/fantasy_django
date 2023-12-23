@@ -1,0 +1,23 @@
+.left {
+  display: flex;
+  flex: 0 1 50%;
+  flex-direction: column;
+  padding-right: 1.5rem;
+}
+.left .image {
+  /* border: 2px solid #2a2727; */
+  background-color: #fffffc;
+  height: 300px;
+  width: 200px;
+  transition: background-image 1s ease-in-out;
+}
+
+.left .frontImage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+  bottom: 0;
+  transition: opacity 1s ease-in-out;
+}
